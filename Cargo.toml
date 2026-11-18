@@ -1,0 +1,41 @@
+[package]
+name = "aditi"
+version = "0.1.0"
+edition = "2021"
+description = "Motor headless em Rust para adquirir arquivos de cloud drives, com manifests e eventos NDJSON."
+license = "MIT"
+repository = "https://github.com/victor1mor/Aditi"
+readme = "README.md"
+keywords = ["download", "cloud", "mega", "google-drive", "onedrive"]
+categories = ["command-line-utilities"]
+exclude = ["/downloads", "/proxies.txt"]
+
+[dependencies]
+# Integração com Serviços de Nuvem
+# Fixo em 0.11.0: a 0.11.1 (patch) reescreveu ~37 mil linhas e embute SQLite com
+# RUSTSEC-2026-0459 (rusqlite bundled). O Aditi so usa link publico, AES e chaves.
+megalib = "=0.11.0"
+
+# Async & Networking
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "socks", "rustls-tls"] }
+futures = "0.3"
+
+# CLI Parsing
+clap = { version = "4", features = ["derive"] }
+
+base64 = "0.22"
+rand = "0.9"
+# Integridade de conteudo. Toda a familia RustCrypto fica na linha 0.10
+# para compartilhar o mesmo `digest`; 0.11 traria um segundo trait no grafo.
+sha2 = "0.10"
+sha1 = "0.10"
+md-5 = "0.10"
+crc32c = "0.6"
+
+# Utils
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json"] }

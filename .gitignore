@@ -1,0 +1,5 @@
+/target
+/.aditi/
+/downloads/
+__pycache__/
+*.py[cod]
